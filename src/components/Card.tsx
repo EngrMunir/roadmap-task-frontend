@@ -3,7 +3,7 @@ import { GrLike } from "react-icons/gr";
 
 type Props = {
   item: {
-    _id: string;       // add _id for API calls
+    _id: string;       
     title: string;
     description: string;
     category: string;
@@ -14,21 +14,6 @@ type Props = {
 };
 
 const Card = ({ item, onUpvote }: Props) => {
-  const [upvotes, setUpvotes] = useState(item.upvotes);
-  const [loading, setLoading] = useState(false);
-
-  const handleUpvote = async () => {
-    if (loading) return; // prevent multiple clicks
-    setLoading(true);
-    try {
-      await onUpvote?.(item._id);
-      setUpvotes((prev) => prev + 1); // optimistic UI update
-    } catch (err) {
-      alert("Failed to upvote. Try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="bg-white p-5 rounded-lg shadow-md border">
@@ -42,10 +27,9 @@ const Card = ({ item, onUpvote }: Props) => {
         type="button"
         className="mt-2 text-blue-600 font-semibold flex items-center gap-1 hover:text-blue-800 disabled:opacity-50"
         aria-label="Upvote"
-        onClick={handleUpvote}
-        disabled={loading}
+        onClick={()=>onUpvote?.(item._id)}
       >
-        {upvotes} <GrLike />
+        {item.upvotes} <GrLike />
       </button>
     </div>
   );

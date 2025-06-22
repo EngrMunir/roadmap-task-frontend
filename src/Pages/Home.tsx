@@ -1,22 +1,32 @@
 import { useEffect, useState } from "react";
 import { TRoadmap } from "../types";
 import Card from "../components/Card";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const [roadmaps, setRoadmaps] =  useState<TRoadmap[]>([]);
+    const navigate = useNavigate();
+
+      const fetchRoadmaps = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/roadmap");
+      const data = await res.json();
+      setRoadmaps(data.data);
+    } catch (err) {
+      console.error("Failed to fetch roadmaps", err);
+    }
+  };
 
     useEffect(()=>{
-        fetch('http://localhost:5000/api/roadmap')
-        .then(res =>res.json())
-        .then(data =>{
-            setRoadmaps(data.data)
-        })
+        fetchRoadmaps();
     },[]);
 
-      const handleUpvote = async (id: string) => {
+    const handleUpvote = async (id: string) => {
+    
     const token = localStorage.getItem("token");
     if (!token) {
       alert("Please login to upvote.");
+      navigate('/login')
       return;
     }
     const res = await fetch(`http://localhost:5000/api/roadmap/upvote/${id}`, {
@@ -28,6 +38,8 @@ const Home = () => {
     if (!res.ok) {
       throw new Error("Upvote failed");
     }
+    console.log(res)
+   fetchRoadmaps();
   };
     return (
          <div className="max-w-6xl mx-auto px-4 py-8">

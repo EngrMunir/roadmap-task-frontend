@@ -9,3 +9,9 @@ export type TRoadmap = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type TUser = {     
+  name: string;
+  email: string;
+  role: "user" | "admin";
+};

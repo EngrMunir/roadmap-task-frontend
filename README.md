@@ -37,8 +37,13 @@ A full-stack roadmap interaction application built as part of a 10-day Junior De
 ## 🚀 How to Run Locally
 
 ### 1️⃣ Clone the repository
-```bash
-git clone [https://github.com/your-username/roadmap-app.git](https://github.com/EngrMunir/roadmap-task-frontend.git)
+## Frontend
+git clone https://github.com/EngrMunir/roadmap-task-frontend.git
 cd roadmap-app-frontend
+npm install
+npm run dev
+## Backend
+git clone https://github.com/EngrMunir/roadmap-task-backend.git
+cd roadmap-app-backend
 npm install
 npm run dev
